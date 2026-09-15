@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 210MB
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/music_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: ${DB_USER:music}
+    password: ${DB_PASSWORD:mymusic123}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+app:
+  # 音频与封面文件的存储目录（相对路径基于运行目录）
+  upload-dir: ${UPLOAD_DIR:./uploads}
+  # 上传接口口令（前端上传页需输入，接口层也强制校验）
+  upload-passcode: ${UPLOAD_PASSCODE:10010812}
