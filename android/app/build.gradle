@@ -1,0 +1,49 @@
+def ksPath = System.getenv("KS_PATH")
+def ksPass = System.getenv("KS_PASS")
+def ksAlias = System.getenv("KS_ALIAS")
+
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.mymusic.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.mymusic.app"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    if (ksPath != null) {
+        signingConfigs {
+            release {
+                storeFile file(ksPath)
+                storePassword ksPass
+                keyAlias ksAlias
+                keyPassword ksPass
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (ksPath != null) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+// 零第三方依赖：纯 framework API，不引入 appcompat / androidX
+dependencies {
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 与前端 Element Plus 主色一致 -->
+    <color name="brand">#409EFF</color>
+    <color name="ic_launcher_background">#1D2431</color>
+</resources>
