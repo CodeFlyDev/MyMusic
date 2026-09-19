@@ -5,9 +5,13 @@
   "main": "main.js",
   "author": "CodeFlyDev",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CodeFlyDev/MyMusic.git"
+  },
   "scripts": {
     "build:icon": "node build-icon.js",
-    "dist": "electron-builder --win --x64"
+    "dist": "electron-builder --win --x64 --publish never"
   },
   "build": {
     "appId": "com.mymusic.desktop",
