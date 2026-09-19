@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>MyMusic</title>
+<style>
+  :root { color-scheme: dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+    background: #1d2431;
+    color: #e5eaf3;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card { width: 100%; max-width: 440px; padding: 24px; }
+  h1 { font-size: 26px; margin-bottom: 8px; }
+  .desc { font-size: 13px; color: #a3adc2; line-height: 1.7; margin-bottom: 20px; }
+  .error {
+    display: none;
+    background: #3a2733; border: 1px solid #e25c5c; color: #ff9c9c;
+    border-radius: 6px; padding: 10px 12px; font-size: 12px;
+    margin-bottom: 16px; word-break: break-all;
+  }
+  input {
+    width: 100%; padding: 11px 12px; font-size: 14px;
+    background: #151a24; border: 1px solid #363d4d; border-radius: 6px;
+    color: #e5eaf3; outline: none;
+  }
+  input:focus { border-color: #409eff; }
+  button {
+    width: 100%; margin-top: 16px; padding: 11px; font-size: 14px;
+    background: #409eff; color: #fff; border: none; border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover { background: #337ecc; }
+  .tip { font-size: 12px; color: #6b7487; margin-top: 14px; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>MyMusic</h1>
+    <p class="desc">请输入 MyMusic 服务器地址，客户端将加载该站点。<br>例如：http://192.168.1.100:8080 或 https://music.example.com</p>
+    <div class="error" id="error"></div>
+    <input id="url" type="text" placeholder="http://服务器IP:8080" autofocus>
+    <button id="save">保存并进入</button>
+    <p class="tip">地址会保存在本机，下次启动自动连接；连接失败时可在此修改</p>
+  </div>
+  <script>
+    const { ipcRenderer } = require('electron')
+    const errorBox = document.getElementById('error')
+    const urlInput = document.getElementById('url')
+
+    const err = new URLSearchParams(location.search).get('error')
+    if (err) {
+      errorBox.style.display = 'block'
+      errorBox.textContent = '无法连接服务器：' + decodeURIComponent(err)
+    }
+
+    function submit() {
+      const v = urlInput.value.trim()
+      if (!v) { urlInput.focus(); return }
+      ipcRenderer.send('server-url', v)
+    }
+    document.getElementById('save').addEventListener('click', submit)
+    urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') submit() })
+  </script>
+</body>
+</html>

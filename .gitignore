@@ -27,3 +27,9 @@ android/.gradle/
 android/build/
 android/app/build/
 android/local.properties
+
+# Desktop (Electron) build outputs
+desktop/node_modules/
+desktop/release/
+desktop/icon-256.png
+desktop/icon.ico
