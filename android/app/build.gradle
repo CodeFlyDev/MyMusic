@@ -1,10 +1,10 @@
-def ksPath = System.getenv("KS_PATH")
-def ksPass = System.getenv("KS_PASS")
-def ksAlias = System.getenv("KS_ALIAS")
-
 plugins {
     id 'com.android.application'
 }
+
+def ksPath = System.getenv("KS_PATH")
+def ksPass = System.getenv("KS_PASS")
+def ksAlias = System.getenv("KS_ALIAS")
 
 android {
     namespace 'com.mymusic.app'
